@@ -4,13 +4,16 @@
   "version": "1.0.0",
   "main": "src/app.js",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "gen": "prisma generate"
+  },
   "dependencies": {
-    "@prisma/client": "3.7.0"
+    "@prisma/client": "4.15.0",
+    "dotenv": "^16.1.4"
   },
   "devDependencies": {
     "@types/node": "16.11.7",
-    "prisma": "3.7.0",
+    "prisma": "4.15.0",
     "prisma-generator-checker": "workspace:*",
     "typescript": "4.5.2"
   }

@@ -1,6 +1,5 @@
-generator custom_generator {
+generator prisma_checker {
   provider = "npx prisma-generator-checker"
-  output   = "../types"
 }
 
 datasource db {

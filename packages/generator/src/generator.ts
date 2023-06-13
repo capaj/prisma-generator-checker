@@ -1,9 +1,10 @@
 import { generatorHandler, GeneratorOptions } from '@prisma/generator-helper'
 import { logger } from '@prisma/sdk'
-import path from 'path'
+
 import { GENERATOR_NAME } from './constants'
-import { genEnum } from './helpers/genEnum'
-import { writeFileSafely } from './utils/writeFileSafely'
+
+import { readFileSync, writeFileSync } from 'fs'
+import { getSchemaHash } from './getSchemaHash'
 
 const { version } = require('../package.json')
 
@@ -13,19 +14,28 @@ generatorHandler({
     return {
       version,
       defaultOutput: '../generated',
-      prettyName: GENERATOR_NAME,
+      prettyName: GENERATOR_NAME
     }
   },
   onGenerate: async (options: GeneratorOptions) => {
-    options.dmmf.datamodel.enums.forEach(async (enumInfo) => {
-      const tsEnum = genEnum(enumInfo)
+    
+    const dotenv = readFileSync('./.env', 'utf-8')
+    const schemaHash = getSchemaHash()
+    console.log('schemaHash:', schemaHash)
 
-      const writeLocation = path.join(
-        options.generator.output?.value!,
-        `${enumInfo.name}.ts`,
+    if (!dotenv.includes('PRISMA_CURRENT_SCHEMA_HASH')) {
+      writeFileSync(
+        './.env',
+        `${dotenv}\nPRISMA_CURRENT_SCHEMA_HASH=${schemaHash}`
       )
-
-      await writeFileSafely(writeLocation, tsEnum)
-    })
-  },
+    } else {
+      writeFileSync(
+        './.env',
+        dotenv.replace(
+          /PRISMA_CURRENT_SCHEMA_HASH=(.*)/,
+          `PRISMA_CURRENT_SCHEMA_HASH=${schemaHash}`
+        )
+      )
+    }
+  }
 })
