@@ -6,7 +6,7 @@ TODO automatically generate prisma schema when it is out of sync
 
 ## How to use
 
-make sure you have `.env` file in your project.
+make sure you have `.env` file in your project root folder.
 
 Add this:
 
@@ -24,7 +24,7 @@ then at runtime, you can do
 import('../node_modules/prisma-generator-checker/dist/runtimeChecker')
 ```
 
-this will check sha hash of the schema.prisma file to make sure it matches to when your prisma generation was last executed. If it does not match, it throws an error like this:
+this will check sha hash of the schema.prisma file to make sure it matches to the one stored in `.env` when your prisma generation was last executed. If it does not match, it throws an error like this:
 
 ```
 Error: Prisma schema hash does not match the one in .env, please run prisma generate and commit the changes.
