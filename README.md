@@ -21,7 +21,10 @@ to your `schema.prisma`
 then at runtime, you can do
 
 ```ts
-import('../node_modules/prisma-generator-checker/dist/runtimeChecker')
+if (process.env.NODE_ENV !== 'production') {
+  // prisma generator checker should not be needed for prod as long as you trust your CI to generate the prisma client correctly
+  import('../node_modules/prisma-generator-checker/dist/runtimeChecker')
+}
 ```
 
 this will check sha hash of the schema.prisma file to make sure it matches to the one stored in `.env` when your prisma generation was last executed. If it does not match, it throws an error like this:
