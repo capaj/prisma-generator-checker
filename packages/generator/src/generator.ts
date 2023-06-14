@@ -25,7 +25,7 @@ generatorHandler({
     }
 
     const dotenv = readFileSync('./.env', 'utf-8')
-    const schemaHash = getSchemaHash()
+    const schemaHash = await getSchemaHash()
 
     if (!dotenv.includes('PRISMA_CURRENT_SCHEMA_HASH')) {
       writeFileSync(
