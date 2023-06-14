@@ -1,12 +1,12 @@
 import { generatorHandler, GeneratorOptions } from '@prisma/generator-helper'
 import { logger } from '@prisma/sdk'
 
-import { GENERATOR_NAME } from './constants'
-
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { getSchemaHash } from './getSchemaHash'
 
 const { version } = require('../package.json')
+
+const GENERATOR_NAME = 'prisma-generator-checker'
 
 generatorHandler({
   onManifest() {
