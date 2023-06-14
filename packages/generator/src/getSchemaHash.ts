@@ -1,8 +1,8 @@
-import { readFileSync } from 'fs'
 import crypto from 'crypto'
+import { readFile } from 'fs/promises'
 
-export function getSchemaHash() {
-  const prismaSchema = readFileSync('./prisma/schema.prisma', 'utf-8')
+export async function getSchemaHash() {
+  const prismaSchema = await readFile('./prisma/schema.prisma', 'utf-8')
 
   const prismaSchemaHash = crypto
     .createHash('sha256')

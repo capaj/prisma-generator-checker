@@ -21,9 +21,11 @@ to your `schema.prisma`
 then at runtime, you can do
 
 ```ts
+import { checkPrismaSchemaHash } from '../node_modules/prisma-generator-checker/dist/checkPrismaSchemaHash'
+
 if (process.env.NODE_ENV !== 'production') {
   // prisma generator checker should not be needed for prod as long as you trust your CI to generate the prisma client correctly
-  import('../node_modules/prisma-generator-checker/dist/runtimeChecker')
+  checkPrismaSchemaHash()
 }
 ```
 

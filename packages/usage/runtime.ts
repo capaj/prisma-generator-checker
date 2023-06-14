@@ -1,4 +1,5 @@
 import 'dotenv/config'
-import('../generator/src/runtimeChecker').then(() => {
-  console.log('checked and matched')
+import { checkPrismaSchemaHash } from '../generator/src/checkPrismaSchemaHash'
+checkPrismaSchemaHash().then((hash) => {
+  console.log(`checked and matched ${hash}`)
 })
