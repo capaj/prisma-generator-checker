@@ -1,7 +1,7 @@
 {
   "name": "prisma-generator-checker",
   "description": "tiny prisma generator to check when prisma schema is out of sync with the generated client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/generator.js",
   "license": "MIT",
   "bin": {
