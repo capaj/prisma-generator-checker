@@ -3,7 +3,7 @@ import { logger } from '@prisma/sdk'
 
 import { GENERATOR_NAME } from './constants'
 
-import { readFileSync, writeFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { getSchemaHash } from './getSchemaHash'
 
 const { version } = require('../package.json')
@@ -18,10 +18,14 @@ generatorHandler({
     }
   },
   onGenerate: async (options: GeneratorOptions) => {
-    
+    const dotenvExists = existsSync('./.env')
+    if (!dotenvExists) {
+      logger.warn('No .env file found, skipping')
+      return
+    }
+
     const dotenv = readFileSync('./.env', 'utf-8')
     const schemaHash = getSchemaHash()
-    console.log('schemaHash:', schemaHash)
 
     if (!dotenv.includes('PRISMA_CURRENT_SCHEMA_HASH')) {
       writeFileSync(
