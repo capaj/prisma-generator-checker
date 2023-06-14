@@ -10,7 +10,7 @@ make sure you have `.env` file in your project.
 
 Add this:
 
-```
+```prisma
 generator prisma_checker {
   provider = "npx prisma-generator-checker"
 }
@@ -20,7 +20,7 @@ to your `schema.prisma`
 
 then at runtime, you can do
 
-```
+```ts
 import('../node_modules/prisma-generator-checker/dist/runtimeChecker')
 ```
 
